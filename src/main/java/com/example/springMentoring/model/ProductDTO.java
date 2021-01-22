@@ -1,12 +1,8 @@
 package com.example.springMentoring.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class ProductDTO {
 
     private String name;

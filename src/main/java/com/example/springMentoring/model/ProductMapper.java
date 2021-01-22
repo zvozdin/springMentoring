@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-//    ProductDTO toProductDTO(Product product);
+    ProductDTO toProductDTO(Product product);
 
     List<ProductDTO> toProductDTOs(List<Product> products);
 
