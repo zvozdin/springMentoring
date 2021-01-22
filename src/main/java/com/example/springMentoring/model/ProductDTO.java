@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class ProductDTO {
 
-    private Long userId;
     private String name;
-    private int quantity;
+    private Double price;
 }
