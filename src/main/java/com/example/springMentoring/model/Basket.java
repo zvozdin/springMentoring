@@ -1,14 +1,12 @@
 package com.example.springMentoring.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "basket")
 public class Basket {
@@ -28,5 +26,5 @@ public class Basket {
     @Column(nullable = false)
     private Integer quantity;
     @Column(nullable = false)
-    private Double cost;
+    private Double price;
 }

@@ -22,4 +22,10 @@ public class ProductService {
     public void addProduct(Product product) {
         productRepository.save(product);
     }
+
+    public Product getProductByName(String name) {
+        return productRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("doesn't exist such product as [%s]", name)));
+    }
 }

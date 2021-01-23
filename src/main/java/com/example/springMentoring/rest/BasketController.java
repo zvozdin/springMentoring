@@ -1,32 +1,37 @@
 package com.example.springMentoring.rest;
 
-import com.example.springMentoring.model.Basket;
-import com.example.springMentoring.model.Product;
+import com.example.springMentoring.model.BasketDTO;
+import com.example.springMentoring.model.BasketMapper;
+import com.example.springMentoring.model.CreateBasketDTO;
 import com.example.springMentoring.service.BasketService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@RequiredArgsConstructor
 
 @RestController
 @RequestMapping("/baskets")
 public class BasketController {
 
     private final BasketService basketService;
-
-    public BasketController(BasketService basketService) {
-        this.basketService = basketService;
-    }
+    private final BasketMapper basketMapper;
 
     @GetMapping
     @PreAuthorize("hasAuthority('read')")
-    public List<Basket> getAllBaskets() {
-        return basketService.getAllBaskets();
+    public List<BasketDTO> getAllBaskets() {
+        List<BasketDTO> basketDTOS = basketMapper.toBasketDTOs(basketService.getAllBaskets());
+
+        return basketDTOS;
+
     }
 
-    @PostMapping(value = "/add",consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAuthority('write')")
-    public void addProductToBasket(@RequestBody Product product){
+    public void addProductToBasket(@RequestBody CreateBasketDTO basketDTO){
+        basketService.addOrChangeInToBasket(basketDTO);
         return;
     }
 }
