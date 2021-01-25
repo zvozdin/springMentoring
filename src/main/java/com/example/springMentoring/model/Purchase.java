@@ -1,10 +1,14 @@
 package com.example.springMentoring.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "purchase")
 public class Purchase {
@@ -16,11 +20,9 @@ public class Purchase {
     @Column(nullable = false)
     private Double price;
 
-// todo implement data purchase creating
-
-//    @CreationTimestamp
-//    @Column(name = "dataTime", nullable = false, insertable = false)
-//    private LocalDateTime date;
+    @CreationTimestamp
+    @Column(name = "data_time", nullable = false/*, insertable = false*/)
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

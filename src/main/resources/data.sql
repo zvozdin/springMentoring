@@ -22,6 +22,15 @@ CREATE TABLE product
     CONSTRAINT product_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE purchase
+(
+	id bigint AUTO_INCREMENT NOT NULL,
+    user_id bigint NOT NULL,
+    price double             NOT NULL,
+	CONSTRAINT purchase_pk PRIMARY KEY (id),
+	CONSTRAINT purchase_user_fk FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 insert into users
     (login, password, role, status)
 values ('admin', '$2y$12$F8MEnNvYjISmU3PZfyPc8O9mKglNhL2beFKcxASz2wW1ru2/qoGzi', 'ADMIN', 'ACTIVE'),

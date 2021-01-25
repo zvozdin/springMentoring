@@ -28,10 +28,11 @@ public class BasketController {
 
     }
 
+    // todo work out with security
+
     @PostMapping(consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAuthority('write')")
     public void addProductToBasket(@RequestBody CreateBasketDTO basketDTO){
         basketService.addOrChangeInToBasket(basketDTO);
-        return;
     }
 }

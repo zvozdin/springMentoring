@@ -9,7 +9,9 @@ import java.util.List;
 @Mapper
 public interface PurchaseMapper {
 
-    @Mappings(@Mapping(target = "name", source = "user.login"))
+    @Mappings({
+            @Mapping(target = "name", source = "user.login"),
+            @Mapping(target = "order", source = "id")})
     PurchaseDTO toPurchaseDTO(Purchase purchase);
 
     List<PurchaseDTO> toPurchaseDTOs(List<Purchase> purchases);
