@@ -33,8 +33,12 @@ public class User {
     private Status status;
 
     @Setter(value = AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Basket> baskets = new ArrayList<>();
+
+    @Setter(value = AccessLevel.PRIVATE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Purchase> purchases = new ArrayList<>();
 
     public void addBasket(Basket basket) {
         baskets.add(basket);
@@ -44,5 +48,15 @@ public class User {
     public void removeBasket(Basket basket) {
         baskets.remove(basket);
         basket.setUser(null);
+    }
+
+    public void addPurchase(Purchase purchase) {
+        purchases.add(purchase);
+        purchase.setUser(this);
+    }
+
+    public void removePurchase(Purchase purchase) {
+        purchases.remove(purchase);
+        purchase.setUser(null);
     }
 }

@@ -23,15 +23,16 @@ public class BasketService {
         return basketRepository.findAll();
     }
 
+    public void clearBaskets() {
+        basketRepository.deleteAll();
+    }
+
     @Transactional
     public void addOrChangeInToBasket(CreateBasketDTO basketDTO) {
         Basket basket = basketRepository.findByProductName(basketDTO.getName()).orElse(null);
 
         if (basket == null) {
-            Product product = productService.getProductByName(basketDTO.getName());
-            User user = userService.getUserByLogin(basketDTO.getLogin());
-
-            basket = getBasket(basketDTO, product, user);
+            basket = createBasket(basketDTO);
         } else {
             basket.setQuantity(basketDTO.getQuantity());
             basket.setPrice(basketDTO.getQuantity() * basket.getProduct().getPrice());
@@ -40,12 +41,17 @@ public class BasketService {
         basketRepository.save(basket);
     }
 
-    private Basket getBasket(CreateBasketDTO basketDTO, Product product, User user) {
+    private Basket createBasket(CreateBasketDTO basketDTO) {
         Basket basket = new Basket();
+
+        Product product = productService.getProductByName(basketDTO.getName());
         basket.setProduct(product);
-        basket.setUser(user);
-        basket.setQuantity(basketDTO.getQuantity());
         basket.setPrice(product.getPrice() * basketDTO.getQuantity());
+        basket.setQuantity(basketDTO.getQuantity());
+
+        User user = userService.getUserByLogin(basketDTO.getLogin());
+        basket.setUser(user);
+        user.addBasket(basket);
         return basket;
     }
 }
