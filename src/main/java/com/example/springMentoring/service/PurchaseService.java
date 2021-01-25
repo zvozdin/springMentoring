@@ -1,6 +1,7 @@
 package com.example.springMentoring.service;
 
 import com.example.springMentoring.dao.PurchaseRepository;
+import com.example.springMentoring.exception.PurchaseWithEmptyBasketException;
 import com.example.springMentoring.model.Basket;
 import com.example.springMentoring.model.Purchase;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,9 @@ public class PurchaseService {
     private Purchase getPurchase() {
         List<Basket> baskets = basketService.getAllBaskets();
 
-        // todo if size == 0 throw empty basket
+        if (baskets.isEmpty()) {
+            throw new PurchaseWithEmptyBasketException();
+        }
 
         Purchase purchase = new Purchase();
         purchase.setPrice(baskets.stream()

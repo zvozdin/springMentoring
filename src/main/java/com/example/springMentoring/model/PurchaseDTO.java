@@ -10,5 +10,7 @@ public class PurchaseDTO {
 
 // todo implement purchase date
 
+//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+//private LocalDateTime timestamp;
 //    private Timestamp date;
 }
