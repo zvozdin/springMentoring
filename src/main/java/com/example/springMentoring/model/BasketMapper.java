@@ -6,7 +6,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BasketMapper {
 
     @Mappings(@Mapping(target = "name", source = "product.name"))

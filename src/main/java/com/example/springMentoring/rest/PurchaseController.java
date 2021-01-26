@@ -3,6 +3,7 @@ package com.example.springMentoring.rest;
 import com.example.springMentoring.model.PurchaseDTO;
 import com.example.springMentoring.model.PurchaseMapper;
 import com.example.springMentoring.service.PurchaseService;
+import com.example.springMentoring.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +19,9 @@ import java.util.List;
 @RequestMapping("/purchase")
 public class PurchaseController {
 
-    private final PurchaseMapper purchaseMapper;
+    private final ShopService shopService;
     private final PurchaseService purchaseService;
+    private final PurchaseMapper purchaseMapper;
 
     @GetMapping
     @PreAuthorize("hasAuthority('read')")
@@ -30,6 +32,6 @@ public class PurchaseController {
     @PostMapping
     @PreAuthorize("hasAuthority('write')")
     public PurchaseDTO doPurchase() {
-        return purchaseMapper.toPurchaseDTO(purchaseService.doPurchase());
+        return purchaseMapper.toPurchaseDTO(shopService.doPurchase());
     }
 }
